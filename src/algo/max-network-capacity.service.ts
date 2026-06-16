@@ -39,3 +39,23 @@ export class MaxNetworkCapacityService {
     return maxCapacity;
   }
 }
+
+function main(): void {
+  const service = new MaxNetworkCapacityService();
+  const cases: Array<[number[], number]> = [
+    [[1, 8, 6, 2, 5, 4, 8, 3, 7], 49],
+    [[1, 1], 1],
+    [[4, 3, 2, 1, 4], 16],
+    [[1], 0],
+  ];
+  for (const [heights, expected] of cases) {
+    const actual = service.solution(heights);
+    console.log(
+      `solution(${JSON.stringify(heights)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

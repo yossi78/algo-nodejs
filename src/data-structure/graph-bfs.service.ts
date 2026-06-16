@@ -40,3 +40,13 @@ export class GraphBfsService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new GraphBfsService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

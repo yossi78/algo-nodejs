@@ -29,3 +29,13 @@ export class ListService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new ListService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

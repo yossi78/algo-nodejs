@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AlgoController } from './algo.controller';
 import { LongestUniqueSubarrayService } from './longest-unique-subarray.service';
 import { MaxSumSubarrayService } from './max-sum-subarray.service';
 import { SubarraySumEqualsKService } from './subarray-sum-equals-k.service';
@@ -12,7 +11,7 @@ import { RateLimitService } from './rate-limit.service';
 import { RateLimiterLogCleanerService } from './rate-limiter-log-cleaner.service';
 
 @Module({
-  controllers: [AlgoController],
+  controllers: [],
   providers: [
     LongestUniqueSubarrayService,
     MaxSumSubarrayService,

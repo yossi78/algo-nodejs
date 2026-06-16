@@ -76,3 +76,36 @@ export class LruCache {
     this.map.delete(lru.key);
   }
 }
+
+function main(): void {
+  const cache = new LruCache(2);
+  const log: Array<[string, number]> = [];
+
+  cache.put(1, 1);
+  cache.put(2, 2);
+  log.push(['get(1)', cache.get(1)]); // 1, makes key 2 the LRU
+  cache.put(3, 3); // evicts key 2
+  log.push(['get(2)', cache.get(2)]); // -1 (evicted)
+  cache.put(4, 4); // evicts key 1
+  log.push(['get(1)', cache.get(1)]); // -1 (evicted)
+  log.push(['get(3)', cache.get(3)]); // 3
+  log.push(['get(4)', cache.get(4)]); // 4
+
+  const expected: Array<[string, number]> = [
+    ['get(1)', 1],
+    ['get(2)', -1],
+    ['get(1)', -1],
+    ['get(3)', 3],
+    ['get(4)', 4],
+  ];
+  log.forEach(([label, actual], i) => {
+    const want = expected[i][1];
+    console.log(
+      `${label} = ${actual} (expected ${want}) ${actual === want ? 'PASS' : 'FAIL'}`,
+    );
+  });
+}
+
+if (require.main === module) {
+  main();
+}

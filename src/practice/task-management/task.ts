@@ -32,3 +32,25 @@ export class Task {
     return 0;
   }
 }
+
+function main(): void {
+  const high = new Task(1, 5);
+  const low = new Task(2, 1);
+  console.log(
+    `high-priority before low-priority: ${high.compareTo(low) < 0 ? 'PASS' : 'FAIL'}`,
+  );
+  console.log(
+    `low-priority after high-priority: ${low.compareTo(high) > 0 ? 'PASS' : 'FAIL'}`,
+  );
+
+  // Same priority -> earlier timestamp wins (created first).
+  const first = new Task(3, 2);
+  const second = new Task(4, 2);
+  console.log(
+    `same priority, earlier-created first: ${first.compareTo(second) < 0 ? 'PASS' : 'FAIL'}`,
+  );
+}
+
+if (require.main === module) {
+  main();
+}

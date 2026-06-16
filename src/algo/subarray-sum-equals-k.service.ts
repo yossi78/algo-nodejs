@@ -35,3 +35,24 @@ export class SubarraySumEqualsKService {
     return count;
   }
 }
+
+function main(): void {
+  const service = new SubarraySumEqualsKService();
+  const cases: Array<[number[], number, number]> = [
+    [[1, 1, 1], 2, 2],
+    [[1, 2, 3], 3, 2],
+    [[1, -1, 0], 0, 3],
+    [[3, 4, 7, 2, -3, 1, 4, 2], 7, 4],
+    [[], 0, 0],
+  ];
+  for (const [packets, k, expected] of cases) {
+    const actual = service.solution(packets, k);
+    console.log(
+      `solution(${JSON.stringify(packets)}, ${k}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

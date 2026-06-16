@@ -96,3 +96,31 @@ export class Heap<T> {
     [this.items[i], this.items[j]] = [this.items[j], this.items[i]];
   }
 }
+
+function main(): void {
+  // Min-heap: elements should pop in ascending order.
+  const minHeap = new Heap<number>((a, b) => a - b);
+  [5, 1, 3, 2, 4].forEach((n) => minHeap.push(n));
+  const minOrder: number[] = [];
+  while (!minHeap.isEmpty()) {
+    minOrder.push(minHeap.pop() as number);
+  }
+  const minExpected = [1, 2, 3, 4, 5];
+  console.log(
+    `min-heap pop order = ${JSON.stringify(minOrder)} (expected ${JSON.stringify(minExpected)}) ${JSON.stringify(minOrder) === JSON.stringify(minExpected) ? 'PASS' : 'FAIL'}`,
+  );
+
+  // Max-heap: reversed comparator pops in descending order.
+  const maxHeap = new Heap<number>((a, b) => b - a);
+  [5, 1, 3, 2, 4].forEach((n) => maxHeap.push(n));
+  console.log(
+    `max-heap peek = ${maxHeap.peek()} (expected 5) ${maxHeap.peek() === 5 ? 'PASS' : 'FAIL'}`,
+  );
+  console.log(
+    `empty heap pop = ${minHeap.pop()} (expected undefined) ${minHeap.pop() === undefined ? 'PASS' : 'FAIL'}`,
+  );
+}
+
+if (require.main === module) {
+  main();
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Heap } from '../common/heap';
+import { Heap } from './heap';
 
 /**
  * Java's PriorityBlockingQueue is a thread-safe, unbounded priority queue whose
@@ -49,4 +49,14 @@ export class PriorityBlockingQueueService {
     }
     return out;
   }
+}
+
+function main(): void {
+  for (const line of new PriorityBlockingQueueService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
 }

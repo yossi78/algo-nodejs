@@ -60,3 +60,13 @@ export class ConcurrentHashMapService {
     }
   }
 }
+
+function main(): void {
+  for (const line of new ConcurrentHashMapService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

@@ -37,3 +37,41 @@ export class AttackTimelineAggregatorService {
     return merged;
   }
 }
+
+function main(): void {
+  const service = new AttackTimelineAggregatorService();
+  const cases: Array<[number[][], number[][]]> = [
+    [
+      [
+        [1, 3],
+        [2, 6],
+        [8, 10],
+        [15, 18],
+      ],
+      [
+        [1, 6],
+        [8, 10],
+        [15, 18],
+      ],
+    ],
+    [
+      [
+        [1, 4],
+        [4, 5],
+      ],
+      [[1, 5]],
+    ],
+    [[], []],
+  ];
+  for (const [intervals, expected] of cases) {
+    const actual = service.solution(intervals);
+    const pass = JSON.stringify(actual) === JSON.stringify(expected);
+    console.log(
+      `solution(${JSON.stringify(intervals)}) = ${JSON.stringify(actual)} (expected ${JSON.stringify(expected)}) ${pass ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

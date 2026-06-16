@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Heap } from '../common/heap';
+import { Heap } from './heap';
 
 /** Demonstrates a Heap via a priority queue (min-heap by default). */
 @Injectable()
@@ -29,4 +29,14 @@ export class PriorityQueueHeapService {
     out.push(`Max Heap peek: ${maxHeap.peek()}`);
     return out;
   }
+}
+
+function main(): void {
+  for (const line of new PriorityQueueHeapService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
 }

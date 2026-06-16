@@ -65,3 +65,13 @@ export class TreeBstService {
     return arr;
   }
 }
+
+function main(): void {
+  for (const line of new TreeBstService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

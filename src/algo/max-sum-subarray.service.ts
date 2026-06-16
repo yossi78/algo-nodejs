@@ -34,3 +34,23 @@ export class MaxSumSubarrayService {
     return maxSum;
   }
 }
+
+function main(): void {
+  const service = new MaxSumSubarrayService();
+  const cases: Array<[number[], number, number]> = [
+    [[2, 1, 5, 1, 3, 2], 3, 9],
+    [[2, 3, 4, 1, 5], 2, 7],
+    [[1, 2, 3], 5, 0],
+    [[5], 1, 5],
+  ];
+  for (const [requests, k, expected] of cases) {
+    const actual = service.solution(requests, k);
+    console.log(
+      `solution(${JSON.stringify(requests)}, ${k}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

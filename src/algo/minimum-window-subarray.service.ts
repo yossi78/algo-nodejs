@@ -72,3 +72,24 @@ export class MinimumWindowSubarrayService {
     return minLen === Number.MAX_SAFE_INTEGER ? 0 : minLen;
   }
 }
+
+function main(): void {
+  const service = new MinimumWindowSubarrayService();
+  const cases: Array<[number[], number[], number]> = [
+    [[1, 2, 3, 2, 1], [2, 1], 2],
+    [[1, 2, 3, 4, 5], [3], 1],
+    [[1, 2, 3], [4], 0],
+    [[7, 1, 2, 1, 3, 1], [1, 1], 3],
+    [[], [1], 0],
+  ];
+  for (const [logs, targets, expected] of cases) {
+    const actual = service.solution(logs, targets);
+    console.log(
+      `solution(${JSON.stringify(logs)}, ${JSON.stringify(targets)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

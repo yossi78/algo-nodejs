@@ -55,3 +55,25 @@ export class BracketValidatorService {
     );
   }
 }
+
+function main(): void {
+  const service = new BracketValidatorService();
+  const cases: Array<[string, number]> = [
+    ['()[]{}', 1],
+    ['([{}])', 1],
+    ['(]', 0],
+    ['([)]', 0],
+    ['(', 0],
+    ['', 1],
+  ];
+  for (const [input, expected] of cases) {
+    const actual = service.solution(input);
+    console.log(
+      `solution(${JSON.stringify(input)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

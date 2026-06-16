@@ -35,3 +35,24 @@ export class LongestUniqueSubarrayService {
     return maxLen;
   }
 }
+
+function main(): void {
+  const service = new LongestUniqueSubarrayService();
+  const cases: Array<[number[], number]> = [
+    [[1, 2, 3, 1, 2], 3],
+    [[1, 1, 1, 1], 1],
+    [[1, 2, 3, 4], 4],
+    [[5, 1, 3, 5, 2, 3, 4, 1], 5],
+    [[], 0],
+  ];
+  for (const [input, expected] of cases) {
+    const actual = service.solution(input);
+    console.log(
+      `solution(${JSON.stringify(input)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Heap } from '../../common/heap';
+import { Heap } from '../../data-structure/heap';
 import { Task } from './task';
 
 /**
@@ -26,4 +26,35 @@ export class TaskManagerService {
     }
     return task;
   }
+}
+
+function main(): void {
+  const manager = new TaskManagerService();
+  // [taskId, priority] — higher priority first; ties broken by insertion order.
+  manager.addTask(33, 1);
+  manager.addTask(40, 2);
+  manager.addTask(11, 1);
+  manager.addTask(20, 2);
+  manager.addTask(22, 1);
+  manager.addTask(60, 2);
+
+  const order: number[] = [];
+  for (let i = 0; i < 6; i++) {
+    const task = manager.getNextTask();
+    if (task) {
+      order.push(task.taskId);
+    }
+  }
+
+  const expected = [40, 20, 60, 33, 11, 22];
+  console.log(
+    `dequeue order = ${JSON.stringify(order)} (expected ${JSON.stringify(expected)}) ${JSON.stringify(order) === JSON.stringify(expected) ? 'PASS' : 'FAIL'}`,
+  );
+  console.log(
+    `empty manager returns undefined: ${manager.getNextTask() === undefined ? 'PASS' : 'FAIL'}`,
+  );
+}
+
+if (require.main === module) {
+  main();
 }

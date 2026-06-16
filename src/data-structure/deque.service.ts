@@ -29,3 +29,13 @@ export class DequeService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new DequeService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

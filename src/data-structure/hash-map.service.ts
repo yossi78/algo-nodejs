@@ -26,3 +26,13 @@ export class HashMapService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new HashMapService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

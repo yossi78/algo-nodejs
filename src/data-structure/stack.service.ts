@@ -22,3 +22,13 @@ export class StackService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new StackService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

@@ -38,3 +38,13 @@ export class LinkedListService {
     return out;
   }
 }
+
+function main(): void {
+  for (const line of new LinkedListService().run()) {
+    console.log(line);
+  }
+}
+
+if (require.main === module) {
+  main();
+}

@@ -39,3 +39,23 @@ export class RateLimiterLogCleanerService {
     return savedCount;
   }
 }
+
+function main(): void {
+  const service = new RateLimiterLogCleanerService();
+  const cases: Array<[number[], string[], number]> = [
+    [[1, 5, 11, 12], ['cpu', 'cpu', 'cpu', 'disk'], 3],
+    [[0, 9, 10], ['a', 'a', 'a'], 2],
+    [[], [], 0],
+    [[1, 2, 3], ['x', 'y', 'z'], 3],
+  ];
+  for (const [timestamps, alerts, expected] of cases) {
+    const actual = service.solution(timestamps, alerts);
+    console.log(
+      `solution(${JSON.stringify(timestamps)}, ${JSON.stringify(alerts)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}

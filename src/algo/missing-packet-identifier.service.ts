@@ -37,3 +37,24 @@ export class MissingPacketIdentifierService {
     return n + 1;
   }
 }
+
+function main(): void {
+  const service = new MissingPacketIdentifierService();
+  const cases: Array<[number[], number]> = [
+    [[1, 2, 0], 3],
+    [[3, 4, -1, 1], 2],
+    [[7, 8, 9, 11, 12], 1],
+    [[1, 2, 3], 4],
+    [[], 1],
+  ];
+  for (const [packetIds, expected] of cases) {
+    const actual = service.solution(packetIds);
+    console.log(
+      `solution(${JSON.stringify(packetIds)}) = ${actual} (expected ${expected}) ${actual === expected ? 'PASS' : 'FAIL'}`,
+    );
+  }
+}
+
+if (require.main === module) {
+  main();
+}
