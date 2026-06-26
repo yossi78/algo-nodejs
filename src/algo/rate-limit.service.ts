@@ -11,55 +11,63 @@ import { Injectable } from '@nestjs/common';
  */
 @Injectable()
 export class RateLimitService {
-  private readonly userRequestsMap = new Map<string, number[]>();
-  private readonly maxSizeOfRequests = 5;
-  private readonly lifespanInMillis = 5 * 1000;
+  
 
-  addRequest(userId: string): boolean {
-    const now = Date.now();
-    let requests = this.userRequestsMap.get(userId);
-    if (requests == null) {
-      requests = [];
-      this.userRequestsMap.set(userId, requests);
-    }
+  private maxRequests:number = 100;
+  private lifeSpanInMilis = 60*1000;
+  private usersMap = new Map<string,number[]>();
+  
 
-    this.removeOutdated(requests, now);
-    if (requests.length >= this.maxSizeOfRequests) {
-      return false;
-    }
-    requests.push(now);
-    return true;
-  }
-
-  private removeOutdated(requests: number[], now: number): void {
-    while (requests.length > 0) {
-      const earliestRequest = requests[0];
-      if (now - earliestRequest > this.lifespanInMillis) {
-        requests.shift();
-      } else {
-        break;
+  public async isAllowed(userId){
+      let requests = this.usersMap.get(userId);
+      if(requests==null){
+          requests = [];
+          requests.push(Date.now());
+          this.usersMap.set(userId,requests);
+          return true;
       }
-    }
+      this.removeOutdated(requests);
+      if(requests.length<this.maxRequests){
+          requests.push(Date.now());
+          return true;
+      }
+      console.log("Max login per second - blocking");
+      return false;
   }
+
+
+  private removeOutdated(requests:number[]){
+      while(requests.length>0){
+          let latestTime = requests[0];
+          if(Date.now()-latestTime>this.lifeSpanInMilis){
+              requests.shift();
+          }else{
+              break;
+          }
+      }
+  }
+
+
 }
 
 async function main(): Promise<void> {
   const limiter = new RateLimitService();
-  const userId = 'user-1';
+  const userId = "user-1";
+  const total = 102; // limit is 100, so the last 2 should be blocked
 
-  console.log('Sending 7 requests in a burst (limit is 5):');
-  for (let i = 1; i <= 7; i++) {
-    const allowed = limiter.addRequest(userId);
-    console.log(`  request #${i}: ${allowed ? 'ALLOWED' : 'BLOCKED'}`);
+  console.log(`Sending ${total} requests in a burst (limit is 100):`);
+  let allowedCount = 0;
+  let blockedCount = 0;
+  for (let i = 1; i <= total; i++) {
+      const allowed = await limiter.isAllowed(userId);
+      if (allowed) {
+          allowedCount++;
+      } else {
+          blockedCount++;
+      }
   }
 
-  console.log('\nWaiting 5.5s for the window to expire...');
-  await new Promise((resolve) => setTimeout(resolve, 5500));
-
-  console.log('Sending 1 more request after the window expired:');
-  console.log(
-    `  request #8: ${limiter.addRequest(userId) ? 'ALLOWED' : 'BLOCKED'}`,
-  );
+  console.log(`  allowed: ${allowedCount}, blocked: ${blockedCount}`);
 }
 
 void main();
