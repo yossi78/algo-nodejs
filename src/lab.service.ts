@@ -15,7 +15,8 @@ export class LabService {
 
 function main() {
   let lab = new LabService();
-  console.log(lab.mult(3, 5));
+  let result = lab.mult(3, 5);
+  console.log(result);
 }
 
 
