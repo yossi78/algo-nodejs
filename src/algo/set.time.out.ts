@@ -1,6 +1,6 @@
 
 
-class EventLoopDemo {
+class SetTimeOut {
     private name;
 
     constructor(name) {
@@ -25,5 +25,5 @@ class EventLoopDemo {
     }
   }
   
-  const demo = new EventLoopDemo("Event Loop Demo\n");
+  const demo = new SetTimeOut("Event Loop Demo\n");
   demo.runDemo();
