@@ -1,6 +1,6 @@
 
 
-class SetTimeOut {
+export class SetTimeOut {
     private name;
 
     constructor(name) {
