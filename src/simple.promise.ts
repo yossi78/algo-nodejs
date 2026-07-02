@@ -27,6 +27,24 @@ class SimplePromise {
             resolve(num + 5);
         });
     }
+
+    public addSix(num: number): Promise<number> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(num + 6);
+            }, 6000);
+        });
+    }
+
+    public addSeven(num: number): Promise<number> {
+        return new Promise((resolve) => {
+            resolve(num + 7);
+        });
+    }
+
+    public addEight(num) : number {
+        return num+8;
+    }
 }
 
 
@@ -48,6 +66,16 @@ async function main() {
 
         const addFive = await calculator.addFive(0);
         console.log("addFive:", addFive);
+
+        const addSix = await calculator.addSix(0);
+        console.log("addSix:", addSix);
+
+        const addSeven = await calculator.addSeven(0);
+        console.log("addSeven:", addSeven);
+
+        const addEight = await calculator.addEight(0);
+        console.log("addEight:", addEight);
+
 
 
 
