@@ -1,6 +1,6 @@
 
 
-export class SetTimeOut {
+export class SetTimeOutExample {
     private name;
 
     constructor(name) {
@@ -25,5 +25,5 @@ export class SetTimeOut {
     }
   }
   
-  const demo = new SetTimeOut("Event Loop Demo\n");
+  const demo = new SetTimeOutExample("Event Loop Demo\n");
   demo.runDemo();
